@@ -3,12 +3,15 @@ package app;
 import io.DataReader;
 import model.Book;
 import model.Library;
+import model.Magazine;
 
 public class LibraryControl {
     // zmienne do kontrolowania programu
     private final int EXIT = 0;
     private final int ADD_BOOK = 1;
     private final int PRINT_BOOKS = 2;
+    private final int ADD_MAGAZINE = 3;
+    private final int PRINT_MAGAZINES = 4;
 
     // zmienna do komunikacji z użytkownikiem
     private DataReader dataReader = new DataReader();
@@ -32,13 +35,19 @@ public class LibraryControl {
                 case PRINT_BOOKS:
                     printBooks();
                     break;
+                case ADD_MAGAZINE:
+                    addMagazine();
+                    break;
+                case PRINT_MAGAZINES:
+                    printMagazines();
+                    break;
                 case EXIT:
                     exit();
                     break;
                 default:
                     System.out.println("Nie ma takiej opcji, wprowadź ponownie: ");
             }
-        } while(option != EXIT);
+        } while (option != EXIT);
     }
 
     private void printOptions() {
@@ -46,6 +55,8 @@ public class LibraryControl {
         System.out.println(EXIT + " - wyjście z programu");
         System.out.println(ADD_BOOK + " - dodanie nowej książki");
         System.out.println(PRINT_BOOKS + " - wyświetl dostępne książki");
+        System.out.println(ADD_MAGAZINE + " - dodanie nowego magazynu");
+        System.out.println(PRINT_BOOKS + " - wyświetl dostępne magazyny");
     }
 
     private void addBook() {
@@ -56,6 +67,16 @@ public class LibraryControl {
     private void printBooks() {
         library.printBooks();
     }
+
+    private void addMagazine() {
+        Magazine magazine = dataReader.readAndCreateMagazine();
+        library.addMagazines(magazine);
+    }
+
+    private void printMagazines() {
+        library.printMagazines();
+    }
+
 
     private void exit() {
         System.out.println("Koniec programu, papa!");
